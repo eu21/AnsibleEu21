@@ -11,9 +11,9 @@
         file_type: file
         patterns: '*.yml'
         paths: "{{ search_path }}"
-      register: files_found
+    #   register: files_found
 
-    - name: List found files
-      ansible.builtin.debug:
-        msg: "File found: {{ item.path }}"
-      loop: "{{ files_found.files }}"
+    # - name: List found files
+    #   ansible.builtin.debug:
+    #     msg: "File found: {{ item.path }}"
+    #   loop: "{{ files_found.files }}"

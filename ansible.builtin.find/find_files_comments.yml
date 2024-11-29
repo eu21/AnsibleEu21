@@ -1,0 +1,19 @@
+---
+- name: Find files in the folder                     # Play name describing the task
+  hosts: localhost                                   # Indicates which host(s) to run on
+  connection: local                                  # Local connection type since we're targeting localhost
+  tasks:                                             # Task list begins
+    - name: Test reachability                        # Task description
+      ansible.builtin.ping:                          # Using the ping module
+
+    - name: Find all files in folder                 # Task description
+      ansible.builtin.find:                          # Using the find module
+        file_type: file                              # Looking for files, not directories
+        patterns: '*.yml'                            # Pattern to include only YAML files
+        paths: "{{ search_path }}"                   # Variable used to define scan path
+      register: files_found                          # Registers output in a variable
+
+    - name: List found files                         # Task description
+      ansible.builtin.debug:                         # Using the debug module to output information
+        msg: "File found: {{ item.path }}"           # Message format to display found files
+      loop: "{{ files_found.files }}"                # Loop over each file found in the previous task
